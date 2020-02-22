@@ -45,7 +45,7 @@ public class Utilities {
 	}
 	
 	// method for reading standerd input of type Long
-		public static Long longInput() throws NumberFormatException {
+	public static Long longInput() throws NumberFormatException {
 			return s.nextLong(); // method for taking Long input from user
 		}
 	

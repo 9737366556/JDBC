@@ -38,6 +38,7 @@ public class DetailsDAOImpl implements DetailsDAO {
 			int n = stm.executeUpdate("insert into details values (d_id = 1,'" + dto.getFullName() + "' ,'"
 					+ dto.getState() + "'," + dto.getNumber() + ")");
 			System.out.println("data added sucees fully " + n);
+			con.commit();
 
 		} catch (Exception e) {
 			e.printStackTrace();

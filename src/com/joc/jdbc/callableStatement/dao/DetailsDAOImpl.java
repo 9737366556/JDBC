@@ -32,7 +32,10 @@ public class DetailsDAOImpl implements DetailsDAO {
 			dto.setState(Utilities.stringInput());
 			System.out.println("Enter Mobile Number");
 			dto.setNumber(Utilities.longInput());
-			cst = con.prepareCall("call addDetails('"+dto.getFullName()+"','"+dto.getState()+"',"+dto.getNumber()+")");
+			cst = con.prepareCall("call addDetails(?,?,?)");
+			cst.setString(1, dto.getFullName());
+			cst.setString(2, dto.getState());
+			cst.setLong(3, dto.getNumber());
 			cst.executeQuery();
 
 		} catch (Exception e) {
@@ -50,7 +53,8 @@ public class DetailsDAOImpl implements DetailsDAO {
 		try {
 			System.out.println("Enter id that you want to delet");
 			int id = Utilities.integerInput();
-			cst = con.prepareCall("call deleteById("+ id +")");
+			cst = con.prepareCall("call deleteById(?)");
+			cst.setInt(1, id);
 			cst.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +90,8 @@ public class DetailsDAOImpl implements DetailsDAO {
 		try {
 			System.out.println("Enter id that you want to get");
 			int id = Utilities.integerInput();
-			cst = con.prepareCall("call getById(" + id + ")");
+			cst = con.prepareCall("call getById(?)");
+			cst.setInt(1, id);
 			ResultSet rs = cst.executeQuery();
 			if (rs.next()) {
 				System.out.println("id =" + rs.getString(1) + "\t name=" + rs.getString(2) + "\t state="
@@ -113,8 +118,12 @@ public class DetailsDAOImpl implements DetailsDAO {
 			String state = Utilities.stringInput();
 			System.out.println("Enter number ");
 			long number = Utilities.longInput();
-			cst = con.prepareCall("call updateById(" + id + ",'"+name+"' ,'"+ state+ "'," +number+")");
-			 cst.executeQuery();
+			cst = con.prepareCall("call updateById(?,?,?,?)");
+			cst.setInt(1, id);
+			cst.setString(2,name);
+			cst.setString(3, state);
+			cst.setLong(4, number);
+			cst.executeQuery();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
